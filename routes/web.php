@@ -15,5 +15,6 @@ use App\Http\Controllers\PostController;
 */
 
 Route::get('/', [PostController::class, 'index'])->name('home');
-Route::get('/ben', [PostController::class, 'func_un'])->name('ben');
+Route::get('/annonces', [PostController::class, 'show'])->name('annonces');
+Route::get('/annonces/{id}', [PostController::class, 'description'])->name('annonces.description');
 Route::get('/jerome', [PostController::class, 'func_deux'])->name('jerome');

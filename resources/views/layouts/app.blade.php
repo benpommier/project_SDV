@@ -9,6 +9,5 @@
 <body>
     @include('partials.navbar')
     @yield('content')
-</div>
 </body>
 </html> 

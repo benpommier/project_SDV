@@ -3,10 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Group;
+use App\Models\Annonce;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -41,4 +43,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // C'est ici qu'on peut sélectionner un seul "group" pour savoir si on est locataire ou en recherche
+    public function groups()
+    {
+        return $this->hasOne(Group::class);
+    }
+
+    public function annonces()
+    {
+        return $this->hasMany(Annonce::class);
+    }
 }
