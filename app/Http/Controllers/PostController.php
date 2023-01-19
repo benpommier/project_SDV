@@ -12,6 +12,11 @@ class PostController extends Controller
         return view('home');
     }
 
+    public function connexion()
+    {
+        return view('connexion');
+    }
+
     public function show()
     {
         $annonces = Annonce::all();

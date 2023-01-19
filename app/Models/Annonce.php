@@ -26,4 +26,9 @@ class Annonce extends Model
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
+
+    public function getShortContentAttribute()
+    {
+        return preg_replace('/^(.{80}).*$/s', '\\1 ...', $this->content);
+    }
 }
