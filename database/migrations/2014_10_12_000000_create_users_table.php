@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->integer('tel')->unique();
-            $table->string('password');
+            $table->integer('phone')->unique();
             $table->foreignId('group_id')->constrained()->onDelete('cascade');
+            $table->string('password');
             $table->rememberToken();
             $table->timestamps();
         });

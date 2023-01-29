@@ -19,16 +19,11 @@ class Annonce extends Model
 
     public function images()
     {
-        return $this->hasMany(Image::class);
+        return $this->morphMany(Image::class, 'imageable');
     }
 
     public function comments()
     {
         return $this->morphMany(Comment::class, 'commentable');
-    }
-
-    public function getShortContentAttribute()
-    {
-        return preg_replace('/^(.{80}).*$/s', '\\1 ...', $this->content);
     }
 }

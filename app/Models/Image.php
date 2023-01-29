@@ -2,16 +2,15 @@
 
 namespace App\Models;
 
-use App\Models\Annonce;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
     use HasFactory;
 
-    public function annonce()
+    public function imageable()
     {
-        return $this->belongsTo(Annonce::class);
+        return $this->morphTo();
     }
 }

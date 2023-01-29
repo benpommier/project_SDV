@@ -2,42 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Annonce;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index()
+    public function annonces()
     {
-        return view('home');
-    }
-
-    public function connexion()
-    {
-        return view('connexion');
-    }
-
-    public function show()
-    {
-        $annonces = Annonce::all();
-
-        return view('annonces', [
-            'annonces' => $annonces
-        ]);
-    }
-
-    public function description($id)
-    {
-        $annonce = Annonce::findOrFail($id);
-
-        return view('description', [
-            'annonce' => $annonce
-        ]);
-    }
-
-    
-    public function func_deux()
-    {
-        return view('jerome');
+        return view('annonces');
     }
 }

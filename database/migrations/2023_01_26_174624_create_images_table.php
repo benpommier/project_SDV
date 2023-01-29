@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->string('content');
-            $table->integer('commentable_id');
-            $table->string('commentable_type');
+            $table->string('path')->default('default.png');
+            $table->integer('image_id')->constrained()->onDelete('cascade');
+            $table->string('image_type');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('images');
     }
 };
