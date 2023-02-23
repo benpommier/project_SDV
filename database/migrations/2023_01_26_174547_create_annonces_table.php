@@ -16,11 +16,13 @@ return new class extends Migration
         Schema::create('annonces', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('subtitle');
+            $table->string('address');
             $table->integer('price');
             $table->longText('content');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('localisation_id')->constrained()->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

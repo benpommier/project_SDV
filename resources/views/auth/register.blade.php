@@ -27,9 +27,9 @@
         <div class="mt-4">
             <x-input-label for="group_id" :value="__('Vous êtes :')" />
             <select id="group_id" class="form-input block mt-1 w-full" name="group_id" required>
-                <option value="1">Locataire</option>
-                <option value="2">En recherche</option>
-                <option value="3">Locataire + En recherche</option>
+                @foreach (\App\Models\Group::all() as $group)
+                <option value="{{ $group->id }}">{{ $group->name }}</option>
+                @endforeach
             </select>
         </div>
 

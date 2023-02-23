@@ -15,11 +15,9 @@ use App\Http\Controllers\ProfileController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', [PostController::class, 'home'])->name('home');
 Route::get('/annonces', [PostController::class, 'annonces'])->name('annonces');
+Route::match(['get'], '/annonces/{id}', [PostController::class, 'more'])->name('annonce.more');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -27,8 +25,12 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile/annonces', [ProfileController::class, 'all'])->name('profile.annonces');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/creation-annonce', [PostController::class, 'creation'])->name('annonce.creation');
+    Route::post('/creation-annonce', [PostController::class, 'store'])->name('annonce.store');
+    Route::match(['delete'], '/annonces/{id}', [PostController::class, 'destroy'])->name('annonce.destroy');
 });
 
 require __DIR__.'/auth.php';
