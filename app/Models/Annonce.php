@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Tag;
 use App\Models\User;
 use App\Models\Image;
 use App\Models\Comment;
@@ -20,6 +21,7 @@ class Annonce extends Model
         'address',
         'price',
         'content',
+        'nb_coloc',
         'user_id',
         'localisation_id'
     ];
@@ -47,5 +49,15 @@ class Annonce extends Model
     public function getShortContentAttribute()
     {
         return preg_replace('/^(.{80}).*$/s', '\\1 ...', $this->content);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'annonce_user');
     }
 }

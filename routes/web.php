@@ -31,6 +31,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/creation-annonce', [PostController::class, 'creation'])->name('annonce.creation');
     Route::post('/creation-annonce', [PostController::class, 'store'])->name('annonce.store');
     Route::match(['delete'], '/annonces/{id}', [PostController::class, 'destroy'])->name('annonce.destroy');
+    Route::post('/annonces/{id}/subscribe', [PostController::class, 'subscribe'])->name('annonces.subscribe');
+    Route::delete('/annonces/{annonce}/unsubscribe', [PostController::class, 'unsubscribe'])->name('annonces.unsubscribe');
 });
 
 require __DIR__.'/auth.php';

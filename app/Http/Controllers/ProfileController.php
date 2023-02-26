@@ -63,7 +63,7 @@ class ProfileController extends Controller
         $user = Auth::user();
         $annonces = Annonce::with('localisation')->where('user_id', $user->id)->orderBy('id')->get();
 
-        return view('annonce-on-profile', [
+        return view('annonce/annonce-on-profile', [
             'annonces' => $annonces
         ]);
     }

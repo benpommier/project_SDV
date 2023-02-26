@@ -15,7 +15,13 @@
         @foreach($annonces as $annonce)
             <div class="column">
                 <div class="card">
-                    <img src="img1.jpg" alt="Jane" style="width:100%">
+                    @if($annonce->images->count() > 0)
+                        <img src="{{ asset('storage/' . $annonce->images->first()->path) }}" alt="Mon image" width="50%" class="mx-auto">
+                    @else
+                        <div class="col-md-12">
+                            <img src="{{ asset('storage/images/' . 'default.png') }}" alt="Image par défaut" width="20%" class="mx-auto">
+                        </div>
+                    @endif
                     <div class="container">
                         <h2>{{ $annonce->title }}</h2>
                         <p class="title">{{ $annonce->subtitle }}</p>
