@@ -27,8 +27,8 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
         // Gate de protection : Uniquement les utilisateurs connectés et faisant parti du G1 peuvent accéder
 
-        Gate::define('annonce-creation-access', function (User $user) {
-            return $user->group_id == 1;
+        Gate::define('annonce-access', function (User $user) {
+            return in_array($user->group_id, [1, 3]);
         });
     }
 }

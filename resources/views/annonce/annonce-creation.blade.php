@@ -41,20 +41,42 @@
         <!-- Prix -->
         <div class="mt-4">
             <x-input-label for="price" :value="__('Prix / mois en euros')" />
-            <x-text-input id="price" class="block mt-1 w-full" type="text" name="price" :value="old('price')" required />
+            <input type="number" id="price" class="block mt-1 w-full" type="text" name="price" :value="old('price')" required />
             <x-input-error :messages="$errors->get('price')" class="mt-2" />
         </div>
 
         <!-- Description -->
         <div class="mt-4">
             <x-input-label for="content" :value="__('Description')" />
-            <x-text-input id="content" class="block mt-1 w-full" type="text" name="content" :value="old('content')" required />
+                <x-secondary-button
+                    x-data=""
+                    x-on:click.prevent="$dispatch('open-modal', 'help-information')"
+                ><i class="bi bi-info-circle"></i>
+                </x-secondary-button>
+                <x-modal name="help-information" focusable>
+                    <div class="p-6">
+                        <p class="mt-1 text-sm text-gray-600">
+                            {{ __('Comment réaliser une bonne description ?') }}
+                        </p>
+                        <p class="mt-1 text-sm text-gray-600">
+                            {{ __('Le début de votre description apparaitra sur la page générale de toute les annonces,
+                                soyez convaincant dès le début !') }}
+                        </p>
+                        <p class="mt-1 text-sm text-gray-600">
+                            {{ __('N\'hésitez pas à donner le nombre de mètre carré de la maison/appartemment, la taille moyenne 
+                                des chambres disponibles, les magasins essentiels disponible autour de la position de la 
+                                colocation ...') }}
+                        </p>
+                    </div>
+                </x-modal>
+            <textarea id="content" class="block mt-1 w-full" name="content" :value="old('content')" required></textarea>
             <x-input-error :messages="$errors->get('content')" class="mt-2" />
         </div>
 
         <!-- Ajouts de photos -->
         <div class="mt-4">
-            <label for="images">Obligé de mettre une photo, implémentation en cours, ne fonctionne pas encore</label>
+            <label for="images">Photos :</label>
+            <br>
             <input id="images" type="file" name="images[]" multiple>
         </div>
 

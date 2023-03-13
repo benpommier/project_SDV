@@ -22,35 +22,28 @@
                     </div>
                 @endif
 
-                <!-- Titre et annonce -->
-                <div class="max-w-xl">
-                    <p class="font-bold"> {{ $annonce->title }}</p>
-                    <p> {{ $annonce->price }}€ / mois </p>
-                </div>
-
-                <!-- Titre et annonce -->
-                <div class="max-w-xl">
-                    <p class="font-bold"> Nombre de colocataires maximum pour ce logement</p>
-                    <p> {{ $annonce->nb_coloc }} colocataires. </p>
-                </div>
-
-                <div class="max-w-xl">
-                    <p class="font-bold"> Se trouve à</p>
-                    <p> {{ $annonce->address }}</p>
-                </div>
-
-                <div class="max-w-xl">
-                    <p class="font-bold"> Description du professionnel</p>
-                    <p> {{ $annonce->content }} </p>
-                </div>
-
-                <div class="max-w-xl">
-                    <p class="font-bold"> Ce que propose ce logement </p>
-                    @forelse($annonce->tags as $tag) 
-                        <p>{{ $tag->name }}</p>
-                    @empty
-                    <span> Aucune information supplémentaire renseignée </span>
-                    @endforelse
+                <!-- Reste de la présentation de l'annonce / Utilisation des icones de Boostrap -->
+                <div class="bg-white shadow-md rounded-md p-4 mb-8">
+                    <h2 class="text-2xl font-bold mb-4">{{ $annonce->title }}</h2>
+                    <p class="text-xl font-bold mb-2">{{ $annonce->price }}€ / mois</p>
+                    <div class="flex items-center mb-4">
+                        <i class="bi bi-people-fill"></i>
+                        <p class="text-lg">{{ $annonce->nb_coloc }} colocataires maximum pour ce logement</p>
+                    </div>
+                    <div class="flex items-center mb-4">
+                        <i class="bi bi-signpost"></i>
+                        <p class="text-lg">Se trouve à {{ $annonce->address }} dans le quartier de {{ $annonce->localisation->name }}</p>
+                    </div>
+                    <p class="text-lg mb-4">{{ $annonce->content }}</p>
+                    <!-- <a href="#" class="text-blue-500 font-bold hover:underline">Contacter le professionnel</a> -->
+                    <div class="max-w-xl">
+                        <p class="font-bold"> Ce que propose ce logement : </p>
+                        @forelse($annonce->tags as $tag) 
+                            <p class="inline-flex items-center px-2.5 py-0.5 mr-2 mb-2 rounded-full text-sm font-medium bg-gray-100 text-gray-800">{{ $tag->name }}</p>
+                        @empty
+                        <span> Aucune information supplémentaire renseignée. </span>
+                        @endforelse
+                    </div>
                 </div>
             </div>
         </div>
@@ -76,13 +69,13 @@
                     @if ($annonce->users->where('id', Auth::id())->isEmpty() && ($annonce->users->count() < $annonce->nb_coloc))
                     <form method="POST" action="{{ route('annonces.subscribe', $annonce->id) }}">
                         @csrf
-                        <p> Souhaitez-vous vous <button type="submit" class="btn btn-primary font-bold">inscrire</button> à ce logement ?</p>
+                        <p> Souhaitez-vous vous <button type="submit" class="font-bold">inscrire</button> à ce logement ?</p>
                     </form>
                     @elseif ($annonce->users->where('id', Auth::id())->isNotEmpty() && ($annonce->users->count() <= $annonce->nb_coloc))
                     <form method="POST" action="{{ route('annonces.unsubscribe', $annonce->id) }}">
                         @csrf
                         @method('DELETE')
-                        <p> Souhaitez-vous vous <button type="submit" class="btn btn-primary font-bold">désinscrire</button> de ce logement ?</p>
+                        <p> Souhaitez-vous vous <button type="submit" class="font-bold">désinscrire</button> de ce logement ?</p>
                     </form>
                     @endif
                 @endif

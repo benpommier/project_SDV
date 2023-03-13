@@ -6,6 +6,7 @@ use App\Models\Annonce;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\ProfileUpdateRequest;
@@ -62,7 +63,9 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $annonces = Annonce::with('localisation')->where('user_id', $user->id)->orderBy('id')->get();
-
+        if (!Gate::allows('annonce-access')) {
+            abort('403');
+        }
         return view('annonce/annonce-on-profile', [
             'annonces' => $annonces
         ]);

@@ -19,6 +19,7 @@ Route::get('/', [PostController::class, 'home'])->name('home');
 Route::get('/annonces', [PostController::class, 'annonces'])->name('annonces');
 Route::match(['get'], '/annonces/{id}', [PostController::class, 'more'])->name('annonce.more');
 
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

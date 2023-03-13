@@ -22,9 +22,27 @@ class PostController extends Controller
     }
 
     // Page des annonces
-    public function annonces()
+    public function annonces(Request $request)
     {
-        $annonces = Annonce::orderBy('id')->get();
+        $annonces = Annonce::query();
+
+        if ($request->input('localisation_id') && !empty($request->localisation_id) && $request->localisation_id !== '0') {
+            $annonces->where('localisation_id', $request->input('localisation_id'));
+        }
+
+        if ($request->input('prix_min') && !empty($request->prix_min)) {
+            $annonces->where('price', '>=', $request->input('prix_min'));
+        }
+    
+        if ($request->input('prix_max') && !empty($request->prix_max)) {
+            $annonces->where('price', '<=', $request->input('prix_max'));
+        }
+
+        if ($request->input('nb_coloc') && !empty($request->nb_coloc) && $request->nb_coloc !== '1') {
+            $annonces->where('nb_coloc', '=', $request->input('nb_coloc'));
+        }
+
+        $annonces = $annonces->orderBy('id')->get();
         return view('annonce/annonces', [
             'annonces' => $annonces
         ]);
@@ -47,7 +65,7 @@ class PostController extends Controller
     {
         $tags = Tag::orderBy('id')->get();
         
-        if (!Gate::allows('annonce-creation-access')) {
+        if (!Gate::allows('annonce-access')) {
             abort('403');
         }
         return view('annonce/annonce-creation', [
@@ -62,7 +80,7 @@ class PostController extends Controller
         $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'address' => ['required', 'string', 'max:255'],
-            'content' => ['required', 'string', 'max:255'],
+            'content' => ['required', 'string'],
             'price' => ['required', 'numeric'],
         ]);
 

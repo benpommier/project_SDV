@@ -11,7 +11,7 @@
                     <x-nav-link :href="route('annonces')" :active="request()->routeIs('annonces')">
                         {{ __('Annonces') }}
                     </x-nav-link>
-                    @if (Auth::check() && Auth::user()->group_id == 1)
+                    @if (Auth::check() && (in_array(Auth::user()->group_id, [1, 3])))
                     <x-nav-link :href="route('annonce.creation')" :active="request()->routeIs('annonce.creation')">
                         {{ __('Création de votre annonce') }}
                     </x-nav-link>
@@ -44,7 +44,7 @@
                             {{ __('Profil') }}
                         </x-dropdown-link>
                         <!-- Utilisateur connecté ET groupe 1 (Locataire) -->
-                        @if (Auth::check() && Auth::user()->group_id == 1)
+                        @if (Auth::check() && (in_array(Auth::user()->group_id, [1, 3])))
                         <x-dropdown-link :href="route('profile.annonces')">
                             {{ __('Vos annonces') }}
                         </x-dropdown-link>
@@ -96,7 +96,7 @@
             <x-responsive-nav-link :href="route('annonces')" :active="request()->routeIs('annonces')">
                 {{ __('Annonces') }}
             </x-responsive-nav-link>
-            @if (Auth::check() && Auth::user()->group_id == 1)
+            @if (Auth::check() && (in_array(Auth::user()->group_id, [1, 3])))
             <x-responsive-nav-link :href="route('annonce.creation')" :active="request()->routeIs('annonce.creation')">
                 {{ __('Création de votre annonce') }}
             </x-responsive-nav-link>
@@ -115,8 +115,8 @@
                     {{ __('Profil') }}
                 </x-responsive-nav-link>
 
-                <!-- Utilisateur connecté ET groupe 1 (Locataire) -->
-                @if (Auth::user()->group_id == 1)
+                <!-- Utilisateur connecté ET groupe 1 (Locataire) ou 3 (Locataire + recherche) -->
+                @if (in_array(Auth::user()->group_id, [1, 3]))
                 <x-responsive-nav-link :href="route('profile.annonces')">
                     {{ __('Vos annonces') }}
                 </x-responsive-nav-link>
