@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,13 @@ Route::middleware('auth')->group(function () {
     Route::match(['delete'], '/annonces/{id}', [PostController::class, 'destroy'])->name('annonce.destroy');
     Route::post('/annonces/{id}/subscribe', [PostController::class, 'subscribe'])->name('annonces.subscribe');
     Route::delete('/annonces/{annonce}/unsubscribe', [PostController::class, 'unsubscribe'])->name('annonces.unsubscribe');
+
+    Route::get('/taches', [TaskController::class, 'taches'])->name('taches');
+    Route::get('/tache-creation', [TaskController::class, 'creation'])->name('tache.creation');
+    Route::get('/tache-edit', [TaskController::class, 'edit'])->name('tache.edit');
+    Route::put('/tache-edit/{id}', [TaskController::class, 'update'])->name('tache.update');
+    Route::match(['delete'], '/taches/{id}', [TaskController::class, 'destroy'])->name('taches.destroy');
+    Route::post('/tache-creation', [TaskController::class, 'store'])->name('tache.store');
 });
 
 require __DIR__.'/auth.php';

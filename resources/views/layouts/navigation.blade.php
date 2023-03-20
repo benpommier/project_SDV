@@ -5,16 +5,24 @@
             <div class="flex">
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                        {{ __('Accueil') }}
-                    </x-nav-link>
+
                     <x-nav-link :href="route('annonces')" :active="request()->routeIs('annonces')">
                         {{ __('Annonces') }}
                     </x-nav-link>
+
+                    @if (Auth::check() && (in_array(Auth::user()->group_id, [2, 3])) && Auth::user()->annonces->count() > 0)
+                        <x-nav-link :href="route('taches')" :active="request()->routeIs('taches')">
+                            {{ ('Vos tâches') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('tache.creation')" :active="request()->routeIs('tache.creation')">
+                            {{ ('Création de votre tâche') }}
+                        </x-nav-link>
+                    @endif
+
                     @if (Auth::check() && (in_array(Auth::user()->group_id, [1, 3])))
-                    <x-nav-link :href="route('annonce.creation')" :active="request()->routeIs('annonce.creation')">
-                        {{ __('Création de votre annonce') }}
-                    </x-nav-link>
+                        <x-nav-link :href="route('annonce.creation')" :active="request()->routeIs('annonce.creation')">
+                            {{ __('Création de votre annonce') }}
+                        </x-nav-link>
                     @endif
                 </div>
             </div>
@@ -90,12 +98,19 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                {{ __('Accueil') }}
-            </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('annonces')" :active="request()->routeIs('annonces')">
                 {{ __('Annonces') }}
             </x-responsive-nav-link>
+
+            @if (Auth::check() && (in_array(Auth::user()->group_id, [2, 3])) && Auth::user()->annonces->count() > 0)
+                <x-responsive-nav-link :href="route('taches')" :active="request()->routeIs('taches')">
+                    {{ ('Vos tâches') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('tache.creation')" :active="request()->routeIs('tache.creation')">
+                    {{ ('Création de votre tâche') }}
+                </x-responsive-nav-link>
+            @endif
+
             @if (Auth::check() && (in_array(Auth::user()->group_id, [1, 3])))
             <x-responsive-nav-link :href="route('annonce.creation')" :active="request()->routeIs('annonce.creation')">
                 {{ __('Création de votre annonce') }}

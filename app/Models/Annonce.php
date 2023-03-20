@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Tag;
+use App\Models\Task;
 use App\Models\User;
 use App\Models\Image;
 use App\Models\Comment;
@@ -59,5 +60,10 @@ class Annonce extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'annonce_user');
+    }
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
     }
 }

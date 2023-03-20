@@ -76,6 +76,6 @@
             @endforeach
         </div>
     @else
-        <span> Aucune annonce disponible dans votre secteur ou avec les paramètres sélectionnés.</span>
+        <span class="grid place-items-center"> Aucune annonce disponible dans votre secteur ou avec les paramètres sélectionnés.</span>
     @endif
 </x-app-layout>

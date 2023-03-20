@@ -18,7 +18,7 @@ class PostController extends Controller
 
     public function home()
     {
-        return view('welcome');
+        return redirect()->route('annonces');
     }
 
     // Page des annonces
