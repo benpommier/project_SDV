@@ -78,4 +78,11 @@
     @else
         <span class="grid place-items-center"> Aucune annonce disponible dans votre secteur ou avec les paramètres sélectionnés.</span>
     @endif
+    <div class="flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
+        <div>
+            <a href="/">
+                <img src="{{ asset('storage/images/' . 'logo.png') }}" alt="Image par défaut" width="40%" class="mx-auto">
+            </a>
+        </div>
+    </div>
 </x-app-layout>
